@@ -1,6 +1,6 @@
 import os
 
-print("Current directory:", os.getcwd())
+#print("Current directory:", os.getcwd())
 import csv
 
 # Define user roles and their corresponding passwords
