@@ -1,3 +1,5 @@
+from flightinf import *
+
 globalCenter = 100
 
 def main():
@@ -18,7 +20,7 @@ def main():
         
         if usrChoice == 1:
             
-            #flightInfMain()
+            flightInfMain()
             
             input('---Press ENTER to go back.')
             
