@@ -9,13 +9,13 @@ def inputFlightInf(csvfile):
     f1 = open(csvfile, 'a+', newline='')
     f1writer = csv.writer(f1)
     
-    time = input(f"Enter TIME: ")
-    dest = input(f"Enter DESTINATION: ")
-    flightNo = input(f"Enter FLIGHT #: ")
-    airline = input(f"Enter AIRLINE: ")
-    terminal = input(f"Enter TERMINAL: ")
-    gate = input(f"Enter GATE: ")
-    flightStat = input(f"Enter STATUS: ")   
+    time = input("Enter TIME: ")
+    dest = input("Enter DESTINATION: ")
+    flightNo = int(input("Enter FLIGHT #: "))
+    airline = input("Enter AIRLINE: ")
+    terminal = input("Enter TERMINAL: ")
+    gate = int(input("Enter GATE: "))
+    flightStat = input("Enter STATUS: ")   
     
     tmpRow= [time,dest,flightNo,airline,terminal,gate,flightStat]
     f1writer.writerow(tmpRow)
@@ -64,7 +64,33 @@ def serInf(csvfile):
         print('Error: City Data search unsuccessful.')
     
     f1.close()
+
+def delInf(csvfile):
+    f1 = open(csvfile, 'r', newline='')
+    f1reader = csv.reader(f1)
+
+    usrDel = input('Enter flight no. to delete: ')
+
+    flag = False
+    tempRows = []
+
+    for row in f1reader:
+        if row[2].lower() == usrDel.lower():
+            flag = True
+        else:
+            tempRows.append(row)
+            
+    if flag:
+        f1.close()
+        f1 = open(csvfile, 'w', newline='')
+        f1writer = csv.writer(f1)
+        f1writer.writerows(tempRows)
+        f1.close()
+        print('---Deleted successfully.')
     
+    else:
+        print('Error: City not found for deletion, hence not deleted.')
+
 def flightInfMain():
     while True:
         print('-'*100)
@@ -112,9 +138,20 @@ def flightInfMain():
             serInf(arr)
             
             input('---Press ENTER to go back.')
+            
+        elif usrChoice == 6 :
+            
+            delInf(dep)
+            
+            input('---Press ENTER to go back.')
+            
+        elif usrChoice == 7 :
+            
+            delInf(arr)
+            
+            input('---Press ENTER to go back.')
 
         elif usrChoice == 8 :
-            
             break
         
         else:
