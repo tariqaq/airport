@@ -8,15 +8,23 @@ def inputStaffInf():
     f1 = open(staffcsv, 'a+', newline='')
     f1writer = csv.writer(f1)
     
-    time = input("Enter TIME: ")
-    dest = input("Enter DESTINATION: ")
-    flightNo = int(input("Enter FLIGHT #: "))
-    airline = input("Enter AIRLINE: ")
-    terminal = input("Enter TERMINAL: ")
-    gate = int(input("Enter GATE: "))
-    flightStat = input("Enter STATUS: ")   
+    staffno = int(input("Enter Staff Number: "))
+    name = input("Enter Name: ")
+    gender = input("Enter Gender: ")
+    salary = int(input("Enter Salary: "))
+    print('1. Airport Operations\n2. Cargo\n3. Navigation Service\n4. Ground Service')
+    usrdept = int(input('Enter Department number : '))
     
-    tmpRow= [time,dest,flightNo,airline,terminal,gate,flightStat]
+    if usrdept == 1 :
+        dept = 'Airport Operations'
+    elif usrdept == 2  :
+        dept = 'Cargo'
+    elif usrdept == 3  :
+        dept = 'Navigation Service'
+    elif usrdept == 4  :
+        dept = 'Ground Service'
+    
+    tmpRow= [staffno,name,gender,salary,dept]
     f1writer.writerow(tmpRow)
     f1.close() # SAVES file
 
@@ -24,8 +32,8 @@ def showStaffInf():
     f1 = open(staffcsv, 'r', newline='')
     f1reader = csv.reader(f1)
     
-    table = PrettyTable() # departures
-    table.field_names = ['TIME','DESTINATION', 'FLIGHT #', 'AIRLINE', 'TERMINAL', 'GATE', 'STATUS']
+    table = PrettyTable()
+    table.field_names = ['Staff #','Name', 'Gender', 'Salary', 'Department']
     for row in f1reader:
         table.add_row(row)
     print()
@@ -35,21 +43,74 @@ def showStaffInf():
   
     f1.close()
 
+def showStaffDept():
+    f1 = open(staffcsv, 'r', newline='')
+    f1reader = csv.reader(f1)
+    aiops = []
+    cargo = []
+    navser = []
+    grndser = []
+    table = PrettyTable()
+    table.field_names = ['Staff #','Name', 'Gender', 'Salary', 'Department']
+    for row in f1reader:
+        if row[4] == 'Airport Operations':
+            table.add_row(row)
+        
+    print()
+    print('---Airport Operations---'.center(globalCenter))
+    print()
+    print(table)
+    
+    flag = False    
+    table = PrettyTable()
+    table.field_names = ['Staff #','Name', 'Gender', 'Salary', 'Department']
+    for row in f1reader:
+        if row[4] == 'Cargo':
+            table.add_row(row)
+    print()
+    print('---Cargo---'.center(globalCenter))
+    print()
+    print(table)
+    
+    table = PrettyTable()
+    table.field_names = ['Staff #','Name', 'Gender', 'Salary', 'Department']
+    for row in f1reader:
+        if row[4] == 'Navigation Service':
+            table.add_row(row)
+ 
+    print()
+    print('---Navigation Service---'.center(globalCenter))
+    print()
+    print(table)
+    
+    table = PrettyTable()
+    table.field_names = ['Staff #','Name', 'Gender', 'Salary', 'Department']
+    for row in f1reader:
+        if row[4] == 'Ground Service':
+            table.add_row(row)
+
+    print()
+    print('---Ground Service---'.center(globalCenter))
+    print()
+    print(table)
+  
+    f1.close()
+
 def serStaffInf():
     f1 = open(staffcsv, 'r', newline='')
     f1reader = csv.reader(f1)
     
-    usrQuery = input('Enter destination to search flights: ')
+    usrQuery = input('Enter staff name to search : ')
     
     for row in f1reader:
         if row[1].lower() == usrQuery.lower():
             table = PrettyTable()
-            table.field_names = ['TIME','DESTINATION', 'FLIGHT NO.', 'AIRLINE', 'TERMINAL', 'GATE', 'STATUS']
+            table.field_names = ['Staff #','Name', 'Gender', 'Salary', 'Department']
             table.add_row(row)
             print(table)
             break
     else:
-        print('Error: City Data search unsuccessful.')
+        print('Error: Staff data search unsuccessful.')
     
     f1.close()
 
@@ -57,13 +118,13 @@ def delStaffInf():
     f1 = open(staffcsv, 'r', newline='')
     f1reader = csv.reader(f1)
 
-    usrDel = input('Enter flight no. to delete: ')
+    usrDel = int(input('Enter Staff Number to delete: '))
 
     flag = False
     tempRows = []
 
     for row in f1reader:
-        if row[2].lower() == usrDel.lower():
+        if row[0].lower() == usrDel.lower():
             flag = True
         else:
             tempRows.append(row)
@@ -77,9 +138,9 @@ def delStaffInf():
         print('---Deleted successfully.')
     
     else:
-        print('Error: City not found for deletion, hence not deleted.')
+        print('Error: Staff not found for deletion, hence not deleted.')
 
-def flightInfMain():
+def staffMain():
     while True:
         print('-'*100)
         print()
@@ -88,59 +149,46 @@ def flightInfMain():
         print('-'*100)
         
         print('1. Input Staff Information\n'
-            '2. Input Arrival Flight Information \n'
-            '3. Show all Saved Information\n'
-            '4. Search Departure Flight Information\n'
-            '5. Search Arrival Flight Information\n'
-            '6. Delete Departure Flight Information\n'
-            '7. Delete Arrival Flight Information\n'
-            '8. Go back')
+            '2. Show all Staff Information \n'
+            '3. Show All Staff by Departments\n'
+            '4. Search Staff Information\n'
+            '5. Delete Staff Information\n'
+            '6. Go back')
         usrChoice = int(input('Enter choice : '))
         
         if usrChoice == 1:
             
-            inputFlightInf(dep)
+            inputStaffInf()
             
             input('---Press ENTER to go back.')
             
         elif usrChoice == 2 :
             
-            inputFlightInf(arr)
+            showStaffInf()
             
             input('---Press ENTER to go back.')
             
         elif usrChoice == 3 :
             
-            showAllInf()
+            showStaffDept()
             
             input('---Press ENTER to go back.')
             
         elif usrChoice == 4 :
             
-            serInf(dep)
+            serStaffInf()
             
             input('---Press ENTER to go back.')
         
         elif usrChoice == 5 :
             
-            serInf(arr)
+            delStaffInf()
             
             input('---Press ENTER to go back.')
             
         elif usrChoice == 6 :
             
-            delInf(dep)
-            
-            input('---Press ENTER to go back.')
-            
-        elif usrChoice == 7 :
-            
-            delInf(arr)
-            
-            input('---Press ENTER to go back.')
-
-        elif usrChoice == 8 :
             break
-        
+            
         else:
             input('Error : Wrong choice. Press ENTER to go back.')

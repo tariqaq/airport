@@ -14,8 +14,7 @@ def main():
         
         print('1. Flight Information\n'
             '2. Staff Management\n'
-            '3. Aircraft Charges\n'
-            '4. Exit')
+            '3. Exit')
         usrChoice = int(input('Enter choice : '))
         
         if usrChoice == 1:
@@ -26,22 +25,14 @@ def main():
             
         elif usrChoice == 2 :
             
-            #staffMain()
+            staffMain()
             
             input('---Press ENTER to go back.')
             
         elif usrChoice == 3 :
             
-            #chargesMain()
-            
-            input('---Press ENTER to go back.')
-
-        elif usrChoice == 4 :
-            
-            print('---Exiting Program.---')
-            
             break
-        
+
         else:
             input('Error : Wrong choice. Press ENTER to go back.')
             
