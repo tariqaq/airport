@@ -1,4 +1,5 @@
 from flightinf import *
+from staff import *
 
 globalCenter = 100
 
@@ -12,10 +13,9 @@ def main():
         print('-'*100)
         
         print('1. Flight Information\n'
-            '2. Aircraft Reservation\n'
+            '2. Staff Management\n'
             '3. Aircraft Charges\n'
-            '4. Departure (?__?)\n'
-            '5. Exit')
+            '4. Exit')
         usrChoice = int(input('Enter choice : '))
         
         if usrChoice == 1:
@@ -26,7 +26,7 @@ def main():
             
         elif usrChoice == 2 :
             
-            #reserveMain()
+            #staffMain()
             
             input('---Press ENTER to go back.')
             
@@ -35,14 +35,8 @@ def main():
             #chargesMain()
             
             input('---Press ENTER to go back.')
-            
-        elif usrChoice == 4 :
-            
-            #departure()
-            
-            input('---Press ENTER to go back.')
 
-        elif usrChoice == 5 :
+        elif usrChoice == 4 :
             
             print('---Exiting Program.---')
             
