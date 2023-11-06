@@ -1,7 +1,8 @@
 import csv
 from prettytable import PrettyTable
 
-globalCenter = 70
+globalCenter = 55
+globalHeading = 100
 staffcsv = 'staff.csv'
 
 def inputStaffInf():
@@ -60,8 +61,8 @@ def showStaffDept():
     print('---Airport Operations---'.center(globalCenter))
     print()
     print(table)
-    
-    flag = False    
+    f1.seek(0) # resets cursor
+   
     table = PrettyTable()
     table.field_names = ['Staff #','Name', 'Gender', 'Salary', 'Department']
     for row in f1reader:
@@ -71,6 +72,7 @@ def showStaffDept():
     print('---Cargo---'.center(globalCenter))
     print()
     print(table)
+    f1.seek(0) # resets cursor
     
     table = PrettyTable()
     table.field_names = ['Staff #','Name', 'Gender', 'Salary', 'Department']
@@ -82,6 +84,7 @@ def showStaffDept():
     print('---Navigation Service---'.center(globalCenter))
     print()
     print(table)
+    f1.seek(0) # resets cursor
     
     table = PrettyTable()
     table.field_names = ['Staff #','Name', 'Gender', 'Salary', 'Department']
@@ -93,7 +96,7 @@ def showStaffDept():
     print('---Ground Service---'.center(globalCenter))
     print()
     print(table)
-  
+    
     f1.close()
 
 def serStaffInf():
@@ -118,7 +121,7 @@ def delStaffInf():
     f1 = open(staffcsv, 'r', newline='')
     f1reader = csv.reader(f1)
 
-    usrDel = int(input('Enter Staff Number to delete: '))
+    usrDel = input('Enter Staff Number to delete: ')
 
     flag = False
     tempRows = []
@@ -144,7 +147,7 @@ def staffMain():
     while True:
         print('-'*100)
         print()
-        print('STAFF MANAGEMENT MENU'.center(globalCenter))
+        print('STAFF MANAGEMENT MENU'.center(globalHeading))
         print()
         print('-'*100)
         
