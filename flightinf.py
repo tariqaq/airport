@@ -52,16 +52,15 @@ def serInf(csvfile):
     f1reader = csv.reader(f1)
     
     usrQuery = input('Enter destination to search flights: ')
-    
+    table = PrettyTable()
     for row in f1reader:
         if row[1].lower() == usrQuery.lower():
-            table = PrettyTable()
             table.field_names = ['TIME','DESTINATION', 'FLIGHT NO.', 'AIRLINE', 'TERMINAL', 'GATE', 'STATUS']
             table.add_row(row)
-            print(table)
-            break
     else:
         print('Error: City Data search unsuccessful.')
+    
+    print(table)
     
     f1.close()
 
